@@ -35,22 +35,20 @@ while True:
 ## Chaos game
 [source](https://en.wikipedia.org/wiki/Chaos_game) and [source](https://youtu.be/kbKtFN71Lfs)
 
-To match the Wikipedia picture for regular polygons where n = 4 set phi = pi / 4
+To match the Wikipedia pictures of regular polygons where n = 4, set phi = pi/4 
 
 ### Sierpinski Triangle
-![Sierpinski triangle](https://i.imgur.com/9rqMZRx.png)
 ```python
 pixels = pygame.PixelArray(canvas)                       
 P = chaos_game.regular_polygon((canvas_width / 2, canvas_height / 2), 3, 200)
 C = chaos_game.chaos_game(P, 1/2, 100000)                
 chaos_game.draw_chaos_game(C, pixels, color=blue)
 ```
+![Sierpinski triangle](https://i.imgur.com/9rqMZRx.png)
 
 ----
 
 Let n = 6 and step = 2/3.
-
-![Chaos game](https://i.imgur.com/GySZ2wn.png)
 
 ```python
 pixels = pygame.PixelArray(canvas)                       
@@ -58,23 +56,22 @@ P = chaos_game.regular_polygon((canvas_width / 2, canvas_height / 2), 6, 200)
 C = chaos_game.chaos_game(P, 2/3, 100000)                
 chaos_game.draw_chaos_game(C, pixels, color=yellow)
 ```
+![Chaos game](https://i.imgur.com/GySZ2wn.png)
 
 ### Restricted Chaos Games
-Modify the game such that current vertex is removed from the random draw of the next vertex. N = 4, step = 1/2.
+Modify the game such that current vertex is removed from the random draw of the next vertex. Let n = 4 and step = 1/2.
 
-![Restricted chaos game](https://i.imgur.com/xgvsM2o.png)
 ```python
 pixels = pygame.PixelArray(canvas)                       
 P = chaos_game.regular_polygon((canvas_width / 2, canvas_height / 2), 4, 200)
 C = chaos_game.restricted_chaos_game(P, 1/2, 100000)                
 chaos_game.draw_chaos_game(C, pixels, color=red)
 ```
+![Restricted chaos game](https://i.imgur.com/xgvsM2o.png)
 
 ----
 
-n = 6, step = 2/3
-
-![Restricted](https://i.imgur.com/C9fxG7g.png)
+Let n = 6 and step = 2/3
 
 ```python
 pixels = pygame.PixelArray(canvas)                       
@@ -82,6 +79,7 @@ P = chaos_game.regular_polygon((canvas_width / 2, canvas_height / 2), 6, 200)
 C = chaos_game.restricted_chaos_game(P, 2/3, 100000)                
 chaos_game.draw_chaos_game(C, pixels, color=green)
 ```
+![Restricted chaos game](https://i.imgur.com/C9fxG7g.png)
 
 ----
 
@@ -89,17 +87,17 @@ Change the game such that the random index of the next vertex must strictly be g
 
 Let n = 4 and step = 1/2
 
-![Restriced chaos game](https://i.imgur.com/wc8jZca.png)
-
 ```python
 pixels = pygame.PixelArray(canvas)                       
 P = chaos_game.regular_polygon((canvas_width / 2, canvas_height / 2), 4, 200)
 C = chaos_game.restricted_chaos_game_2(P, 2/3, 100000)                
 chaos_game.draw_chaos_game(C, pixels, color=violet)
 ```
+![Restriced chaos game](https://i.imgur.com/wc8jZca.png)
 
 ## Barnsley Fern
 [source](https://en.wikipedia.org/wiki/Barnsley_fern)
+
 ```python
 pixels = pygame.PixelArray(canvas)
 B = barnsley_fern(10000)
