@@ -70,6 +70,8 @@ C = chaos_game.restricted_chaos_game(P, 1/2, 100000)
 chaos_game.draw_chaos_game(C, pixels, color=red)
 ```
 
+----
+
 n = 6, step = 2/3
 
 ![Restricted](https://i.imgur.com/C9fxG7g.png)
