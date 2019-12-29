@@ -1,7 +1,81 @@
-import pygame
+from math import pi
 from random import choice
-from Polygons import regular_polygon, random_point_in_polygon
-from math import pi, sin
+import pygame
+import Polygons
+
+
+black = (0, 0, 0)
+blue = (38, 139, 210)
+yellow = (181, 137, 0)
+red = (220, 50, 47)
+green = (153, 0, 68)
+violet = (108, 113, 196)
+magenta = (211, 54, 130)
+
+
+class ChaosGame():
+
+    """Base class for chaos games"""
+
+    def __init__(self, p: Polygons.Polygon, step: float, n: int, color=blue):
+        """ Intialize the parameters for the chaos game
+
+        :P: P is an iterable of 2D points describing the vertices of a polygon
+        :step: A real number in (-1, 1) describing the step size per iteration
+        :n: The number of iterations to take in the chaos game
+        :color: Color to use when drawing the game
+        """
+        self.polygon = p
+        self.step = step
+        self.n = n
+        self.color = color
+        self.sequence = list()  # stores the last played chaos game
+
+        # generate the sequence
+        self.game()
+
+    def __repr__(self):
+        return f'ChaosGame({self.polygon}, {self.step}, {self.n}, color={self.color})'
+
+    def game(self):
+        a = self.polygon.random_point()
+        for _ in range(self.n):
+            x0, y0 = a
+            x1, y1 = choice(self.polygon.vertices)
+            delta_x = int((x1 - x0) * self.step)
+            delta_y = int((y1 - y0) * self.step)
+            h = delta_x + x0
+            k = delta_y + y0
+            a = (h, k)
+            self.sequence.append(a)
+
+    # def sequence(self):
+    #     '''Yield each step of the sequence'''
+    #     if len(self.sequence) != 0:
+    #         for p in self.sequence:
+    #             yield p
+
+    def draw(self, pixels):
+        '''
+        :pixels: is a pygame.PixelArray
+        '''
+        for x, y in self.sequence:
+            pixels[x][y] = self.color
+
+    def translate(self, t: tuple):
+        '''
+        translate self.polygon by t. Where t is a description of the translation
+        '''
+        x, y = t
+        self.polygon = Polygons.translate(self.polygon, (x, y))
+        self.game()
+
+    def scale(self, s: float):
+        '''
+        scale self.polygon by the parameter s
+        '''
+        self.polygon = Polygons.scale(self.polygon, s)
+        self.game()
 
 
 def chaos_game(P, d, n):
@@ -133,21 +207,11 @@ if __name__ == "__main__":
 
     pixels = pygame.PixelArray(canvas)
 
-    '''
-    center = (canvas_width / 2, canvas_height / 2)  # center of the chaos game
-    n = 4  # number of vertices
-    l = 200  # distance from vertices to center
-    P = regular_polygon(center, n, l, phi=pi/4)  # polygon to house the chaos game
-    x, y = center
-    delta = int(200*sin(pi/4))
-    P = P + [(x, y + delta), (x, y - delta), (x + delta, y), (x - delta, y)]
-    step = 2/3
-    '''
-    B = barnsley_fern(100000)
-    draw_chaos_game(B, pixels, color=(133, 153, 0))
-
-    # drawing the points in the sequence
-    # draw_chaos_game(chaos_game(P, step, 100000), pixels)
+    P = Polygons.Polygon(250, 250, 100, 3)
+    C = ChaosGame(P, 1/2, 1000)
+    C.draw(pixels)
+    C.translate((100, 0))
+    C.draw(pixels)
 
     while True:
         for event in pygame.event.get():
