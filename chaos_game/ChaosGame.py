@@ -77,9 +77,25 @@ class ChaosGame():
         self.polygon = Polygons.scale(self.polygon, s)
         self.game()
 
+    def rotate(self, phi: float):
+        self.polygon = Polygons.rotate(self.polygon, phi)
+        self.game()
+
+    def shear(self, m: float):
+        old = self.polygon
+        p = Polygons.Polygon(old.h, old.k, old.r, old.n)
+        p = Polygons.shear(p, m)
+        self.polygon = p
+        self.game()
+        # self.polygon = Polygons.shear(self.polygon, m)
+        # self.game()
+
+    def reflect(self, m: float, b: float):
+        self.polygon = Polygons.reflect(self.polygon, m, b)
+        self.game()
 
 def chaos_game(P, d, n):
-    a = random_point_in_polygon(P)
+    a = P.random_point()
     for _ in range(n):
         x0, y0 = a
         x1, y1 = choice(P)
@@ -90,11 +106,33 @@ def chaos_game(P, d, n):
         a = (h, k)
         yield a
 
+def ChaosGame(p: Polygons.Polygon, step: float, n: int):
+    '''
+    :p: polygon parameter of the chaos game
+    :step: step size parameter of the chaos game
+    :n: the number of iterations to run the chaos game
+    '''
+    cur = p.random_point()  # the current step in the sequence, intialized to a random point
 
+    for _ in range(n):
+        a, b = cur
+        c, d = choice(p.vertices)
+        delta_x = int((c - a) * step)
+        delta_y = int((d - b) * step)
+        cur = (delta_x + a, delta_y + b)
+        yield cur
+
+
+'''
 def draw_chaos_game(points, pixels, color=(211, 54, 130)):
     for x, y in points:
         pixels[x][y] = color
+'''
 
+def DrawList(points: list, pixels: pygame.PixelArray, color=(211, 54, 130)):
+    for x, y in points:
+        pixels[x][y] = color
+'''
 
 def restricted_chaos_game(P, d, n):
     a = random_point_in_polygon(P)
@@ -109,8 +147,21 @@ def restricted_chaos_game(P, d, n):
         k = delta_y + y0
         a = (h, k)
         yield a
+'''
 
+def ChaosGame2(p: Polygons.Polygon, step: float, n: int):
+    cur = p.random_point()
+    v = choice(p.vertices)
+    for _ in range(n):
+        a, b = cur
+        v = choice(list(filter(lambda x: x != v, p.vertices)))  # filter the previous vertice
+        c, d = v
+        delta_x = int((c - a) * step)
+        delta_y = int((d - b) * step)
+        cur = (delta_x + a, delta_y + b)
+        yield cur
 
+'''
 def restricted_chaos_game_2(P, d, n):
     a = random_point_in_polygon(P)
     v = choice(P)
@@ -125,7 +176,20 @@ def restricted_chaos_game_2(P, d, n):
         k = delta_y + y0
         a = (h, k)
         yield a
-
+'''
+def ChaosGame3(p: Polygons.Polygon, step: float, n: int):
+    cur = p.random_point()
+    v = choice(p.vertices)
+    for _ in range(n):
+        a, b = cur
+        index = (p.vertices.index(v) - 1) % len(p.vertices)
+        v = choice(p.vertices[0:index] + p.vertices[index + 1:])
+        c, d = v
+        delta_x = int((c - a) * step)
+        delta_y = int((d - b) * step)
+        cur = (delta_x + a, delta_y + b)
+        yield cur
+'''
 
 def chaos_game_over_polygons(P, d, n, epsilon=1000):
     p = choice(P)
@@ -142,7 +206,7 @@ def chaos_game_over_polygons(P, d, n, epsilon=1000):
         a = (h, k)
         yield a
 
-
+'''
 def barnsley_fern(n, scale=-30, x_off=250, y_off=400):
     sequence = [(0, 0)]
 
@@ -185,9 +249,8 @@ def barnsley_fern(n, scale=-30, x_off=250, y_off=400):
             x, y = sequence[-1]
             sequence.append(f4(x, y))
 
-    B = [(round(x * scale) + x_off, round(y * scale) + y_off) for x, y in sequence]
+    B = [(int(x * scale) + x_off, int(y * scale) + y_off) for x, y in sequence]
     return B
-
 
 if __name__ == "__main__":
     pygame.init()
@@ -207,11 +270,15 @@ if __name__ == "__main__":
 
     pixels = pygame.PixelArray(canvas)
 
-    P = Polygons.Polygon(250, 250, 100, 3)
-    C = ChaosGame(P, 1/2, 1000)
-    C.draw(pixels)
-    C.translate((100, 0))
-    C.draw(pixels)
+    P = Polygons.Polygon(250, 250, 250, 4)
+    # points = chaos_game(P, 1/2, 1000)
+    # p1 = ChaosGame3(Polygons.translate(Polygons.shear(P, 0.7), (-200, 0)), 1/2, 100000)
+
+    # DrawList(p1, pixels)
+    fern = barnsley_fern(10000)
+    DrawList(fern, pixels)
+    
+    
 
     while True:
         for event in pygame.event.get():

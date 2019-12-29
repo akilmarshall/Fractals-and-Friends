@@ -71,7 +71,7 @@ class Polygon():
 
 
 # def translate(V: list, p) -> list:
-def translate(p, t) -> list:
+def translate(p, t) -> Polygon:
     '''
     t is a point in R^2
     p is a Polygon

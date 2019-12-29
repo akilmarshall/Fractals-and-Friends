@@ -1,8 +1,14 @@
 # Fractals and Friends
  A repository for my exploration and research of fractals and kindred self similar processes/structures. Pygame will be used to create graphics and animations.
+
 ## Todo
 - [ ] Convert api to object oriented
+- [ ] Implement geometric transformations ([info](https://www.cs.brandeis.edu/~cs155/Lecture_06.pdf))
+    - [ ] [Rigid](https://en.wikipedia.org/wiki/Rigid\_transformation)
+    - [ ] [Similarity](https://en.wikipedia.org/wiki/Similarity_geometry)
+    - [ ] [Affine](https://en.wikipedia.org/wiki/Affine_transformation)
 - [ ] Add functional option to api
+
 ## Boilerplate
 ```python
 import pygame
@@ -38,6 +44,8 @@ while True:
 To match the Wikipedia pictures of regular polygons where n = 4, set phi = pi/4 
 
 ### Sierpinski Triangle
+Let n = 3 and step = 1/2.
+
 ```python
 pixels = pygame.PixelArray(canvas)                       
 P = chaos_game.regular_polygon((canvas_width / 2, canvas_height / 2), 3, 200)
@@ -59,7 +67,9 @@ chaos_game.draw_chaos_game(C, pixels, color=yellow)
 ![Chaos game](https://i.imgur.com/GySZ2wn.png)
 
 ### Restricted Chaos Games
-Modify the game such that current vertex is removed from the random draw of the next vertex. Let n = 4 and step = 1/2.
+Modify the game such that current vertex is removed from the random draw of the next vertex.
+
+Let n = 4 and step = 1/2.
 
 ```python
 pixels = pygame.PixelArray(canvas)                       
@@ -71,7 +81,7 @@ chaos_game.draw_chaos_game(C, pixels, color=red)
 
 ----
 
-Let n = 6 and step = 2/3
+Let n = 6 and step = 2/3.
 
 ```python
 pixels = pygame.PixelArray(canvas)                       
@@ -85,7 +95,7 @@ chaos_game.draw_chaos_game(C, pixels, color=green)
 
 Change the game such that the random index of the next vertex must strictly be greater than the previous (or wrap around).
 
-Let n = 4 and step = 1/2
+Let n = 4 and step = 1/2.
 
 ```python
 pixels = pygame.PixelArray(canvas)                       
