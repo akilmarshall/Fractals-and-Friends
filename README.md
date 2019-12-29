@@ -2,11 +2,11 @@
  A repository for my exploration and research of fractals and kindred self similar processes/structures. Pygame will be used to create graphics and animations.
 
 ## Todo
-- [ ] Convert api to object oriented
-- [ ] Implement geometric transformations ([info](https://www.cs.brandeis.edu/~cs155/Lecture_06.pdf))
-    - [ ] [Rigid](https://en.wikipedia.org/wiki/Rigid\_transformation)
-    - [ ] [Similarity](https://en.wikipedia.org/wiki/Similarity_geometry)
-    - [ ] [Affine](https://en.wikipedia.org/wiki/Affine_transformation)
+- [ ] <s>Convert api to object oriented</s>
+- [x] Implement geometric transformations ([info](https://www.cs.brandeis.edu/~cs155/Lecture_06.pdf))
+    - [x] [Rigid](https://en.wikipedia.org/wiki/Rigid\_transformation)
+    - [x] [Similarity](https://en.wikipedia.org/wiki/Similarity_geometry)
+    - [x] [Affine](https://en.wikipedia.org/wiki/Affine_transformation)
 - [ ] Add functional option to api
 
 ## Boilerplate
