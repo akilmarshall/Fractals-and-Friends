@@ -28,12 +28,18 @@ class Polygon():
         self.r = r
         self.n = n
         self.vertices = list()
+        self.generate()
 
+    def generate(self):
         for i in range(self.n):
             theta = (((2 * pi) / self.n) * i) - pi/2
-            x = h + (self.r * cos(theta))
-            y = k + (self.r * sin(theta))
+            x = self.h + (self.r * cos(theta))
+            y = self.k + (self.r * sin(theta))
             self.vertices.append((int(x), int(y)))
+    def update_r(self, r):
+        self.r = r
+        self.vertices.clear()
+        self.generate()
 
     def __repr__(self):
         return f'Polygon({self.h}, {self.k}, {self.r}, {self.n})'
