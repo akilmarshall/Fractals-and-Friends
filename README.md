@@ -55,7 +55,7 @@ P = polygons.Polygon(h, k, 200, 3)
 C = chaos_game.chaos_game(P, 1/2, 100000)
 draw.draw_list(C, canvas, color=draw.BLUE)
 ```
-![Sierpinski triangle](https://i.imgur.com/gxjP1JD.png)
+![Sierpinski triangle](https://i.imgur.com/Dwwa4rT.png)
 
 ----
 
