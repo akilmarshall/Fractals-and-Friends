@@ -5,11 +5,12 @@ import polygons
 import draw
 
 
-def chaos_game(p: polygons.Polygon, step: float, n: int):
+def chaos_game(p: polygons.Polygon, step: float, n: int, cast=False):
     '''
     :p:     polygon parameter of the chaos game
     :step:  step size parameter of the chaos game
     :n:     the number of iterations to run the chaos game
+    :cast: boolean flag to either round or cast coordinates to int
     description
     1. Pick a random point within the polygon
     2. Pick a random vertex
@@ -22,13 +23,19 @@ def chaos_game(p: polygons.Polygon, step: float, n: int):
     for _ in range(n):
         a, b = cur
         c, d = choice(p.vertices)
-        delta_x = round((c - a) * step)
-        delta_y = round((d - b) * step)
+        delta_x = (c - a) * step
+        delta_y = (d - b) * step
+        if cast:
+            delta_x = int(delta_x)
+            delta_y = int(delta_y)
+        else:
+            delta_x = round(delta_x)
+            delta_y = round(delta_y)
         cur = (delta_x + a, delta_y + b)
         yield cur
 
 
-def chaos_game_2(p: polygons.Polygon, step: float, n: int):
+def chaos_game_2(p: polygons.Polygon, step: float, n: int, cast=False):
     '''
     :p:     polygon parameter of the chaos game
     :step:  step size parameter of the chaos game
@@ -46,13 +53,19 @@ def chaos_game_2(p: polygons.Polygon, step: float, n: int):
         a, b = cur
         v = choice(list(filter(lambda x: x != v, p.vertices)))  # filter the previous vertex
         c, d = v
-        delta_x = round((c - a) * step)
-        delta_y = round((d - b) * step)
+        delta_x = (c - a) * step
+        delta_y = (d - b) * step
+        if cast:
+            delta_x = int(delta_x)
+            delta_y = int(delta_y)
+        else:
+            delta_x = round(delta_x)
+            delta_y = round(delta_y)
         cur = (delta_x + a, delta_y + b)
         yield cur
 
 
-def chaos_game_3(p: polygons.Polygon, step: float, n: int):
+def chaos_game_3(p: polygons.Polygon, step: float, n: int, cast=False):
     '''
     :p:     polygon parameter of the chaos game
     :step:  step size parameter of the chaos game
@@ -71,14 +84,20 @@ def chaos_game_3(p: polygons.Polygon, step: float, n: int):
         index = (p.vertices.index(v) - 1) % len(p.vertices)
         v = choice(p.vertices[0:index] + p.vertices[index + 1:])
         c, d = v
-        delta_x = round((c - a) * step)
-        delta_y = round((d - b) * step)
+        delta_x = (c - a) * step
+        delta_y = (d - b) * step
+        if cast:
+            delta_x = int(delta_x)
+            delta_y = int(delta_y)
+        else:
+            delta_x = round(delta_x)
+            delta_y = round(delta_y)
         cur = (delta_x + a, delta_y + b)
         yield cur
 
 
 
-def sierpinski_carpet(p: polygons.Polygon, step: float, n: int):
+def sierpinski_carpet(p: polygons.Polygon, step: float, n: int, cast=False):
     '''
     :p:     polygon parameter of the chaos game
     :step:  step size parameter of the chaos game
@@ -99,13 +118,19 @@ def sierpinski_carpet(p: polygons.Polygon, step: float, n: int):
     for _ in range(n):
         a, b = cur
         c, d = choice(p.vertices + mid_points(p.vertices))
-        delta_x = round((c - a) * step)
-        delta_y = round((d - b) * step)
+        delta_x = (c - a) * step
+        delta_y = (d - b) * step
+        if cast:
+            delta_x = int(delta_x)
+            delta_y = int(delta_y)
+        else:
+            delta_x = round(delta_x)
+            delta_y = round(delta_y)
         cur = (delta_x + a, delta_y + b)
         yield cur
 
 
-def vicsek_fractal(p: polygons.Polygon, step: float, n: int):
+def vicsek_fractal(p: polygons.Polygon, step: float, n: int, cast=False):
     '''
     :p:     polygon parameter of the chaos game
     :step:  step size parameter of the chaos game
@@ -122,12 +147,18 @@ def vicsek_fractal(p: polygons.Polygon, step: float, n: int):
     for _ in range(n):
         a, b = cur
         c, d = choice(p.vertices + [(p.h, p.k)])
-        delta_x = round((c - a) * step)
-        delta_y = round((d - b) * step)
+        delta_x = (c - a) * step
+        delta_y = (d - b) * step
+        if cast:
+            delta_x = int(delta_x)
+            delta_y = int(delta_y)
+        else:
+            delta_x = round(delta_x)
+            delta_y = round(delta_y)
         cur = (delta_x + a, delta_y + b)
         yield cur
 
-def barnsley_fern(n, scale=-30, x_off=250, y_off=400):
+def barnsley_fern(n, scale=-30, x_off=250, y_off=400, cast=False):
     '''
     TODO
     '''
@@ -173,7 +204,11 @@ def barnsley_fern(n, scale=-30, x_off=250, y_off=400):
             sequence.append(f4(x, y))
 
     # adjust points to integers
-    fern = [(round(x * scale) + x_off, round(y * scale) + y_off) for x, y in sequence]
+    fern = [(x * scale + x_off, y * scale + y_off) for x, y in sequence]
+    if cast:
+        fern = ((int(x), int(y)) for x, y in fern)
+    else:
+        fern = ((round(x), round(y)) for x, y in fern)
     return fern
 
 
