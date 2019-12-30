@@ -59,7 +59,7 @@ def chaos_game_3(p: polygons.Polygon, step: float, n: int):
     :n:     the number of iterations to run the chaos game
     description
     1. Pick a random point within the polygon
-    2. Pick a random vertex with rotational position is anti-clockwise of the previous vertex
+    2. Pick a random vertex with rotational position that is anti-clockwise of the previous vertex
     3. Step a predetermined fraction of the distance towards the vertex
     4. Store the spatial position
     5. Go to 2
