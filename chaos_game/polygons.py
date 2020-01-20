@@ -36,6 +36,7 @@ class Polygon():
             x = self.h + (self.r * cos(theta))
             y = self.k + (self.r * sin(theta))
             self.vertices.append((int(x), int(y)))
+
     def update_r(self, r):
         self.r = r
         self.vertices.clear()
@@ -98,6 +99,7 @@ def scale(p: Polygon, s: float) -> Polygon:
     o = Polygon(p.h, p.k, s * p.r, p.n)
     return o
 
+
 def rotate(p: Polygon, phi: float) -> Polygon:
     '''
     Rotate the polgon p by phi radians
@@ -114,6 +116,7 @@ def rotate(p: Polygon, phi: float) -> Polygon:
 
     return o
 
+
 def shear(p: Polygon, m: float) -> Polygon:
     '''
     Shear the polygon p with shear factor m
@@ -122,6 +125,7 @@ def shear(p: Polygon, m: float) -> Polygon:
     o.vertices = [(x + (m * y), y) for x, y in p.vertices]
     o.vertices = [(int(x), int(y)) for x, y in o.vertices]
     return o
+
 
 def reflect(p: Polygon, m: float, b: float) -> Polygon:
     '''
@@ -132,7 +136,7 @@ def reflect(p: Polygon, m: float, b: float) -> Polygon:
 
     def reflect_y(x, y):
         return (((m**2 - 1) * y) + (2 * m * x) - (2 * b)) / (m**2 + 1)
-        
+
     o = Polygon(p.h, p.k, p.r, p.n)
     o.vertices = [(reflect_x(x, y), reflect_y(x, y)) for x, y in p.vertices]
     o.vertices = [(int(x), int(y)) for x, y in o.vertices]

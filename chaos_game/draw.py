@@ -47,9 +47,11 @@ def draw_list(points: list, canvas: pygame.display, color=MAGENTA):
         pixels[x][y] = color
     pixels.close()
 
-def draw_lists(point_list: list, canvas: pygame.display, color=MAGENTA):
-    for l in point_list:
-        draw_list(l, canvas, color=color)
+
+def draw_lists(point_list: list, canvas: pygame.display, color_list):
+    for l, c in zip(point_list, itertools.cycle(color_list)):
+        draw_list(l, canvas, color=c)
+
 
 def grid_info(canvas_width: int, canvas_height: int, cols: int, rows: int) -> dict:
     pad = 5
@@ -73,13 +75,15 @@ def grid_info(canvas_width: int, canvas_height: int, cols: int, rows: int) -> di
 
 
 if __name__ == "__main__":
+    x = 'as'
+    y = 2
+    print(x + y)
     pygame.init()
 
     CANVAS_WIDTH = 1800
     CANVAS_HEIGHT = 1000
     canvas = pygame.display.set_mode((CANVAS_WIDTH, CANVAS_HEIGHT))
     canvas.fill(BASE03)
-
 
     while True:
         for event in pygame.event.get():

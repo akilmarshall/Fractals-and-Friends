@@ -1,5 +1,5 @@
 # Fractals and Friends
- A framework for my exploration and research of fractals and kindred self similar processes/structures. written in python with heavy usage of [pygame](https://www.pygame.org/wiki/about)
+ A framework for my exploration and research of fractals and kindred self similar processes/structures. Written in python with heavy usage of [pygame](https://www.pygame.org/wiki/about)
 
 ## Todo
 - [ ] <s>Convert api to object oriented</s>
@@ -15,6 +15,7 @@
     - [ ] implement 3D polygons
     - [ ] use the geometry to run chaos games on the surfaces
     - [ ] render the polygons
+- [ ] describe the draw.grid_info function and the methodology for grid visualizations in the Grid Visualizations section
 
 ## Boilerplate
 ```python
@@ -131,7 +132,7 @@ P = polygons.Polygon(h, k, 200, 4)
 C = chaos_game.chaos_game_3(P, 1/2, 100000, cast=True)
 draw.draw_list(C, canvas, color=draw.VIOLET)
 ```
-![Restriced chaos game](https://i.imgur.com/cyTv26C.png)
+![Restricted chaos game](https://i.imgur.com/cyTv26C.png)
 
 ## Barnsley Fern
 [source](https://en.wikipedia.org/wiki/Barnsley_fern)
