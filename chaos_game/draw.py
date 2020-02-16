@@ -4,8 +4,6 @@ contains functions that draw to the screen
 '''
 import itertools
 import pygame
-import chaos_game
-import polygons
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

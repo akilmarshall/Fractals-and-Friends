@@ -20,9 +20,7 @@
 ## Boilerplate
 ```python
 import pygame
-import chaos_game
-import polygons
-import draw
+from chaos_game import polygons, chaos_game, draw
 
 pygame.init()
 
@@ -118,8 +116,8 @@ Let n = 4 and step = 1/2.
 h = CANVAS_WIDTH / 2
 k = CANVAS_HEIGHT / 2
 P = polygons.Polygon(h, k, 200, 4)
-C = chaos_game.chaos_game_2(P, 1/2, 100000)
-draw.draw_list(C, canvas, color=draw.GREEN)
+C = chaos_game.chaos_game_3(P, 1/2, 100000)
+draw.draw_list(C, canvas, color=draw.BLUE)
 ```
 ![Restricted chaos game](https://i.imgur.com/auRYyU4.png)
 

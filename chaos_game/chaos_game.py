@@ -1,9 +1,8 @@
 from math import pi
 from random import choice
 import pygame
-import polygons
-import draw
-
+from . import polygons
+from . import draw
 
 def chaos_game(p: polygons.Polygon, step: float, n: int, cast=False):
     '''
@@ -216,17 +215,16 @@ if __name__ == "__main__":
     pygame.init()
 
 
-    canvas_width = 1800
-    canvas_height = 1000
-    canvas = pygame.display.set_mode((canvas_width, canvas_height))
-    canvas.fill(draw.black)
+    CANVAS_WIDTH = 400
+    CANVAS_HEIGHT = 400
+    canvas = pygame.display.set_mode((CANVAS_WIDTH, CANVAS_HEIGHT))
+    canvas.fill(draw.BLACK)
 
-    pixels = pygame.PixelArray(canvas)
-
-    P = polygons.Polygon(500, 500, 220, 5)
-    # points = sierpinski_carpet(P, 2/3, 100000)
-    points = barnsley_fern(10000)
-    draw.draw_list(points, pixels, color=draw.white)
+    h = CANVAS_WIDTH / 2
+    k = CANVAS_HEIGHT / 2
+    P = polygons.Polygon(h, k, 200, 3)
+    C = chaos_game(P, 1/2, 10000)
+    draw.draw_list(C, canvas, color=draw.BLUE)
 
     while True:
         for event in pygame.event.get():
