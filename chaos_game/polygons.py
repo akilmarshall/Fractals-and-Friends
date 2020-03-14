@@ -30,6 +30,10 @@ class Polygon():
         self.vertices = list()
         self.generate()
 
+    def origin(self):
+        """ get the origin of the polygon """
+        return(self.h, self.k)
+
     def generate(self):
         for i in range(self.n):
             theta = (((2 * pi) / self.n) * i) - pi/2
